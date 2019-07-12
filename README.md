@@ -4,11 +4,13 @@
 
 install
 
-``` js
+``` shell
 npm i winston-loggers or yarn add winston-loggers
 ```
 
-``` js
+``` ts
+import Logger from 'winston-loggers'
+
 const logger = new Logger.init({
   filename: <file path>
 })
