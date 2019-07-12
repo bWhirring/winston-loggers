@@ -5,6 +5,8 @@ interface IIogger {
     zippedArchive?: boolean;
     maxSize?: string;
     maxFiles?: string;
+    exceptions?: boolean;
+    exceptionsFile?: string;
 }
 export default class Log {
     init(params: IIogger): Logger;
