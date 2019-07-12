@@ -1,5 +1,5 @@
 {
-  "name": "winston-logger",
+  "name": "winston-loggers",
   "version": "0.0.1",
   "author": "HUHU",
   "license": "MIT",
@@ -10,6 +10,7 @@
   "scripts": {
     "start": "npx tsc"
   },
+  "main": "lib/index.js",
   "dependencies": {
     "@types/node": "^12.6.2",
     "typescript": "^3.5.3",
