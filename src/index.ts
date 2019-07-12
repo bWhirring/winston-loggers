@@ -1,4 +1,4 @@
-import * as winston from 'winston';
+import {createLogger, Logger, format, transports} from 'winston';
 
 require('winston-daily-rotate-file');
 
@@ -10,14 +10,14 @@ interface IIogger {
   maxFiles?: string;
 }
 
-const {combine, timestamp, colorize, simple, json, printf} = winston.format;
+const {combine, timestamp, colorize, simple, json, printf} = format;
 
-export default class Logger {
-  init(params: IIogger) {
+export default class Log {
+  init(params: IIogger): Logger {
     const {filename, datePattern, zippedArchive, maxSize, maxFiles} = params;
     // @ts-ignore
     const opts: IIogger = {
-      filename,
+      filename: `${filename}_%DATE%.log`,
       datePattern: datePattern || 'YYYY-MM-DD',
       maxSize: maxSize || '100m',
       maxFiles: maxFiles || '7d',
@@ -25,9 +25,9 @@ export default class Logger {
     if (zippedArchive) opts.zippedArchive = zippedArchive;
 
     // @ts-ignore
-    var transport = new winston.transports.DailyRotateFile(opts);
+    var transport = new transports.DailyRotateFile(opts);
 
-    var logger = winston.createLogger({
+    var logger = createLogger({
       format: combine(
         timestamp({
           format: 'YYYY-MM-DD HH:mm:ss',
@@ -44,7 +44,7 @@ export default class Logger {
 
     if (process.env.NODE_ENV !== 'production') {
       logger.add(
-        new winston.transports.Console({
+        new transports.Console({
           format: combine(colorize(), simple(), formatParams),
         })
       );

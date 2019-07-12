@@ -1,4 +1,4 @@
-import * as winston from 'winston';
+import { Logger } from 'winston';
 interface IIogger {
     filename: string;
     datePattern?: string;
@@ -6,7 +6,7 @@ interface IIogger {
     maxSize?: string;
     maxFiles?: string;
 }
-export default class Logger {
-    init(params: IIogger): winston.Logger;
+export default class Log {
+    init(params: IIogger): Logger;
 }
 export {};
