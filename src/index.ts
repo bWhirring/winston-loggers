@@ -1,4 +1,4 @@
-import {createLogger, Logger, format, transports} from 'winston';
+import { createLogger, Logger, format, transports } from 'winston';
 
 require('winston-daily-rotate-file');
 
@@ -12,7 +12,7 @@ interface IIogger {
   exceptionsFile?: string;
 }
 
-const {combine, timestamp, colorize, simple, json, printf} = format;
+const { combine, timestamp, colorize, simple, json, printf } = format;
 
 export default class Log {
   init(params: IIogger): Logger {
@@ -47,13 +47,13 @@ export default class Log {
       transports: [transport],
     });
 
-    const formatParams = printf(({level, message, timestamp}) => {
-      const params = {message};
-      return `${level}: ${JSON.stringify(params)} ${timestamp}`;
+    const formatParams = printf(({ level, message, timestamp }) => {
+      const params = { message };
+      return `${timestamp} ${level}: ${JSON.stringify(params)}`;
     });
 
     if (exceptions) {
-      logger.exceptions.handle(new transports.File({filename: exceptionsFile}));
+      logger.exceptions.handle(new transports.File({ filename: exceptionsFile }));
     }
 
     if (process.env.NODE_ENV !== 'production') {
